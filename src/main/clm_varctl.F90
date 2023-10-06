@@ -407,7 +407,10 @@ module clm_varctl
   logical, public :: use_noio            = .false.
 
   logical, public :: use_nguardrail      = .false.
-
+  !----------------------------------------------------------
+  ! scaling of the snow aging rate (tuning option)
+  !----------------------------------------------------------
+  real(r8), public :: snoage_scl = 0.0_r8    ! arbitrary factor applied to snow aging rate if greater than 0
   !----------------------------------------------------------
   ! To retrieve namelist
   !----------------------------------------------------------

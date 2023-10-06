@@ -282,6 +282,8 @@ contains
          use_grainproduct, use_snicar_frc, use_vancouver, use_mexicocity, use_noio, &
          use_nguardrail
 
+    ! Scaling of snow aging rate
+    namelist /clm_inparm/ snoage_scl
 
     ! ----------------------------------------------------------------------
     ! Default values
@@ -336,7 +338,8 @@ contains
        else
           call endrun(msg='ERROR finding clm_nitrogen namelist'//errMsg(sourcefile, __LINE__))
        end if
-
+       write(iulog,*) "#  CLM clm_inparm :"
+       write(iulog,*) 'SNOAGE_SCL is set to: ', snoage_scl
        call relavu( unitn )
 
        ! ----------------------------------------------------------------------
@@ -838,7 +841,8 @@ contains
 
     call mpi_bcast (clump_pproc, 1, MPI_INTEGER, 0, mpicom, ier)
 
-
+    ! scaling of the snow aging rate (tuning option)
+    call mpi_bcast (snoage_scl, 1, MPI_REAL8, 0, mpicom, ier)
   end subroutine control_spmd
 
   !------------------------------------------------------------------------

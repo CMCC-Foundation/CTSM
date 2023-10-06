@@ -1058,6 +1058,7 @@ contains
     use clm_varpar       , only : nlevsno
     use clm_varcon       , only : spval
     use shr_const_mod    , only : SHR_CONST_RHOICE, SHR_CONST_PI
+    use clm_varctl       , only : snoage_scl
     !
     ! !ARGUMENTS:
     type(bounds_type)      , intent(in)    :: bounds  
@@ -1228,10 +1229,9 @@ contains
             !**********  3. SNOWAGE SCALING (TURNED OFF BY DEFAULT)  *************
             !
             ! Multiply rate of change of effective radius by some constant, xdrdt
-            if (flg_snoage_scl) then
-               dr = dr*params_inst%xdrdt
+            if (snoage_scl .gt. 0._r8) then
+               dr = dr*snoage_scl
             endif
-
 
             !
             !**********  4. INCREMENT EFFECTIVE RADIUS, ACCOUNTING FOR:  ***********
