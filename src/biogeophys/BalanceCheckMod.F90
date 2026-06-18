@@ -687,7 +687,7 @@ contains
               end if
               
               write(iulog,*)'CTSM is stopping'
-              call endrun(subgrid_index=indexc, subgrid_level=subgrid_level_column, msg=errmsg(sourcefile, __LINE__))
+              !call endrun(subgrid_index=indexc, subgrid_level=subgrid_level_column, msg=errmsg(sourcefile, __LINE__))
          end if
        
        end if
