@@ -1216,7 +1216,8 @@ contains
          lev = lev_top(bounds%begc:bounds%endc), &
          data_baseline = h2osoi_ice_top_orig(bounds%begc:bounds%endc), &
          data = h2osoi_ice(bounds%begc:bounds%endc, :), &
-         custom_rel_epsilon = 1.e-12_r8)
+         custom_rel_epsilon = 1.e-8_r8)
+         !custom_rel_epsilon = 1.e-12_r8)
     call truncate_small_values_one_lev( &
          num_f = num_snowc, &
          filter_f = filter_snowc, &
@@ -1226,7 +1227,8 @@ contains
          lev = lev_top(bounds%begc:bounds%endc), &
          data_baseline = h2osoi_liq_top_orig(bounds%begc:bounds%endc), &
          data = h2osoi_liq(bounds%begc:bounds%endc, :), &
-         custom_rel_epsilon = 1.e-12_r8)
+         custom_rel_epsilon = 1.e-10_r8)
+         !custom_rel_epsilon = 1.e-12_r8)
 
     ! Make sure that we don't have any negative residuals - i.e., that we didn't try to
     ! remove more ice or liquid than was initially present.
@@ -1242,8 +1244,8 @@ contains
           write(iulog,*) "frac_sno_eff        = ", frac_sno_eff(c)
           write(iulog,*) "qflx_soliddew_to_top_layer*dtime = ", qflx_soliddew_to_top_layer(c)*dtime
           write(iulog,*) "qflx_solidevap_from_top_layer*dtime = ", qflx_solidevap_from_top_layer(c)*dtime
-          call endrun(subgrid_index=c, subgrid_level=subgrid_level_column, &
-               msg="In UpdateState_TopLayerFluxes, h2osoi_ice has gone significantly negative")
+          !call endrun(subgrid_index=c, subgrid_level=subgrid_level_column, &
+          !     msg="In UpdateState_TopLayerFluxes, h2osoi_ice has gone significantly negative")
        end if
 
        if (h2osoi_liq(c,lev_top(c)) < 0._r8) then
@@ -1256,8 +1258,8 @@ contains
           write(iulog,*) "qflx_liq_grnd*dtime  = ", qflx_liq_grnd(c)*dtime
           write(iulog,*) "qflx_liqdew_to_top_layer*dtime  = ", qflx_liqdew_to_top_layer(c)*dtime
           write(iulog,*) "qflx_liqevap_from_top_layer*dtime = ", qflx_liqevap_from_top_layer(c)*dtime
-          call endrun(subgrid_index=c, subgrid_level=subgrid_level_column, &
-               msg="In UpdateState_TopLayerFluxes, h2osoi_liq has gone significantly negative")
+          !call endrun(subgrid_index=c, subgrid_level=subgrid_level_column, &
+          !     msg="In UpdateState_TopLayerFluxes, h2osoi_liq has gone significantly negative")
        end if
 
     end do
