@@ -1,5 +1,7 @@
 # CTSM
 
+CODE VERSION: `ctsm5.1.dev128_cm3_v1`
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3739617.svg)](https://doi.org/10.5281/zenodo.3739617)
 
 ## Overview and resources
