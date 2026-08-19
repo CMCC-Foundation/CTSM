@@ -197,6 +197,7 @@
       <value compset="_CAM"        >diagnostic</value>
       <value compset="_BGC%BDRD"   >diagnostic</value>
       <value compset="_BGC%BPRP"   >prognostic</value>
+      <value compset="_BGC%B"      >prognostic</value>
       <value compset="HIST.*_DATM" >diagnostic</value>
       <value compset="SSP.*_DATM"  >diagnostic</value>
     </values>
