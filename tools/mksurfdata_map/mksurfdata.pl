@@ -655,6 +655,7 @@ EOF
       if ( ! $opts{'fast_maps'} ) {
          push( @typlist, "topostats" );
       }
+      print "Get MAPPING data:\n";
       foreach my $typ ( @typlist ) {
          my $lmask = `$scrdir/../../bld/queryDefaultNamelist.pl $mopts -options type=$typ,mergeGIS=$merge_gis,hirespft=$hirespft -var lmask`;
          $lmask = trim($lmask);
@@ -681,6 +682,7 @@ EOF
          if ( ! defined($opts{'allownofile'}) && ! -f $map{$typ} ) {
             die "ERROR: mapping file for this resolution does NOT exist ($map{$typ}).\n";
          }
+         print " -> $typ $lmask $hgrid : $map{$typ}\n";
       }
       #
       # Grid file from the pft map file or grid if not found
@@ -713,6 +715,8 @@ EOF
       #
       # Loop over each SSP-RCP scenario
       #
+      print "Get SURFACE data:\n";
+
       RCP: foreach my $ssp_rcp ( @rcpaths ) {
          #
          # Loop over each sim_year
@@ -755,6 +759,7 @@ EOF
                              "hgrid=$hgrid,lmask=$lmask,mergeGIS=$merge_gis$mkcrop,sim_year=$sim_yr0 -var $filnm";
                $datfil{$typ} = `$typ_cmd`;
                $datfil{$typ} = trim($datfil{$typ});
+               print " -> $typ $lmask $hgrid : $datfil{$typ}\n";
                if ( $datfil{$typ} !~ /[^ ]+/ ) {
                   die "ERROR: could NOT find a $filnm data file for this resolution: $hgrid and type: $typ and $lmask.\n$typ_cmd\n\n";
                }
