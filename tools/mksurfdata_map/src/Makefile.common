@@ -30,13 +30,11 @@ RM = rm
 
 # Check for the netcdf library and include directories 
 ifeq ($(LIB_NETCDF),$(null))
-  #LIB_NETCDF := /usr/local/lib
-  LIB_NETCDF := /zeus/opt/intel20.1/netcdf/C_4.7.4-F_4.5.3_CXX_4.3.1/lib
+  LIB_NETCDF := /usr/local/lib
 endif
 
 ifeq ($(INC_NETCDF),$(null))
-  #INC_NETCDF := /usr/local/include
-  INC_NETCDF := /zeus/opt/intel20.1/netcdf/C_4.7.4-F_4.5.3_CXX_4.3.1/include
+  INC_NETCDF := /usr/local/include
 endif
 
 ifeq ($(MOD_NETCDF),$(null))
@@ -314,6 +312,25 @@ ifeq ($(UNAMES),Linux)
       LDFLAGS   += -qopenmp
     endif
   endif
+
+  ifeq ($(shell basename $(FCTYP)),ifx)
+
+    FFLAGS    += -ftz -fp-model precise -convert big_endian -assume byterecl -traceback -FR
+    CFLAGS    += -m64
+    LDFLAGS   += -m64
+
+    ifneq ($(OPT),TRUE)
+       FFLAGS    += -CB -O0 -g
+    else
+       FFLAGS    += -O2
+    endif
+    ifeq ($(SMP),TRUE)
+      FFLAGS    += -openmp
+      CFLAGS    += -openmp
+      LDFLAGS   += -openmp
+    endif
+  endif
+
   FFLAGS += -c -I$(INC_NETCDF) $(CPPDEF) $(cpp_path)
   CFLAGS += $(cpp_path)
 endif
