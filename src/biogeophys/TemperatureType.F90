@@ -317,6 +317,10 @@ contains
     begl = bounds%begl; endl= bounds%endl
     begg = bounds%begg; endg= bounds%endg
 
+    call hist_addfld1d (fname='LAKE_DEPTH',  units='m',  &
+         avgflag='A', long_name='lake depth', &
+         ptr_col=col%lakedepth)
+
     this%t_h2osfc_col(begc:endc) = spval
     call hist_addfld1d (fname='TH2OSFC',  units='K',  &
          avgflag='A', long_name='surface water temperature', &
